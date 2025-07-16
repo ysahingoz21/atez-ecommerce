@@ -8,3 +8,4 @@ export * from './order-items.controller';
 export * from './orders.controller';
 export * from './product-categories.controller';
 export * from './products.controller';
+export * from './authorization.controller';

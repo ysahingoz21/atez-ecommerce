@@ -1,4 +1,6 @@
 import {ApplicationConfig, AtezEcommerceApplication} from './application';
+import dotenv from 'dotenv';
+dotenv.config();
 
 export * from './application';
 
