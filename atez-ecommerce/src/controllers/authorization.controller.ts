@@ -49,7 +49,7 @@ export class AuthorizationController {
     });
 
     if (!customer) {
-      throw new HttpErrors.Unauthorized('Invalid email or password');
+      throw new HttpErrors.Unauthorized('Email not found');
     }
 
     const passwordValid = await bcrypt.compare(
@@ -58,7 +58,7 @@ export class AuthorizationController {
     );
 
     if (!passwordValid) {
-      throw new HttpErrors.Unauthorized('Invalid email or password');
+      throw new HttpErrors.Unauthorized('Incorrect password');
     }
 
     // Generate JWT
