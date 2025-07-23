@@ -26,9 +26,9 @@ export default function RegisterPage() {
   };
 
   return (
-    <div className="min-h-screen bg-[#727D73] flex items-center justify-center">
-      <div className="bg-[#F2F2F2] py-6 px-8 rounded-lg shadow-lg w-full max-w-lg">
-        <h2 className="text-[#3f4640] text-2xl font-semibold text-center mb-4">Register</h2>
+    <div className="p-2 flex items-center justify-center">
+      <div className="bg-[#FFFFFF] py-4 px-8 rounded-lg shadow-lg w-full max-w-lg relative">
+        <h2 className="text-[#001529] text-2xl font-semibold text-center mb-4">Register</h2>
 
         {errorMessage && (
           <Alert
@@ -47,11 +47,11 @@ export default function RegisterPage() {
             <Form.Item className="!w-[48%]" label="First Name" name="firstName" rules={[{ required: true }]}>
               <Input 
                 className="
-                  !bg-[#D0DDD0]
+                  !bg-[#0015290a]
                   !text-[#1f2937]
                   !border-[#d1d5db]
                   focus:!ring-1
-                  focus:!ring-[#3f4640]
+                  focus:!ring-[#001529]
                   !rounded-md
                   !py-2
                   !px-3
@@ -63,11 +63,11 @@ export default function RegisterPage() {
             <Form.Item className="!w-[48%]" label="Last Name" name="lastName" rules={[{ required: true }]}>
               <Input 
                 className="
-                  !bg-[#D0DDD0]
+                  !bg-[#0015290a]
                   !text-[#1f2937]
                   !border-[#d1d5db]
                   focus:!ring-1
-                  focus:!ring-[#3f4640]
+                  focus:!ring-[#001529]
                   !rounded-md
                   !py-2
                   !px-3
@@ -80,11 +80,11 @@ export default function RegisterPage() {
           <Form.Item label="Phone" name="phone" rules={[{ required: true }]}>
             <Input 
               className="
-                !bg-[#D0DDD0]
+                !bg-[#0015290a]
                 !text-[#1f2937]
                 !border-[#d1d5db]
                 focus:!ring-1
-                focus:!ring-[#3f4640]
+                focus:!ring-[#001529]
                 !rounded-md
                 !py-2
                 !px-3
@@ -96,11 +96,11 @@ export default function RegisterPage() {
           <Form.Item label="Email" name="email" rules={[{ required: true, type: 'email' }]}>
             <Input 
               className="
-                !bg-[#D0DDD0]
+                !bg-[#0015290a]
                 !text-[#1f2937]
                 !border-[#d1d5db]
                 focus:!ring-1
-                focus:!ring-[#3f4640]
+                focus:!ring-[#001529]
                 !rounded-md
                 !py-2
                 !px-3
@@ -125,11 +125,11 @@ export default function RegisterPage() {
           >
             <Input.Password 
               className="
-                !bg-[#D0DDD0]
+                !bg-[#0015290a]
                 !text-[#1f2937]
                 !border-[#d1d5db]
                 focus:!ring-1
-                focus:!ring-[#3f4640]
+                focus:!ring-[#001529]
                 !rounded-md
                 !py-2
                 !px-3
@@ -141,10 +141,10 @@ export default function RegisterPage() {
           <Form.Item>
             <Button 
               className="
-                !bg-[#727D73] 
+                !bg-[#001529e8] 
                 !border
                 !border-transparent
-                hover:!bg-[#3f4640]/90
+                hover:!bg-[#001529]
                 hover:!border-[#000000]
                 !text-[#f2f2f2] 
                 transition-all duration-300
@@ -158,11 +158,11 @@ export default function RegisterPage() {
           </Form.Item>
         </Form>
 
-        <div className="text-center mb-2">
-          <span className="text-[#3f4640]">Do you have an account?</span>
+        <div className="text-center">
+          <span className="text-[#001529]">Do you have an account?</span>
           <Button
             type="link"
-            className="!text-[#3f4640] !font-semibold hover:!text-[#3f4640]/90 p-0 !text-lg"
+            className="!text-[#001529] !font-semibold hover:!text-[#001529]/90 p-0 !text-lg"
             onClick={() => router.push('/login')}
           >
             Login

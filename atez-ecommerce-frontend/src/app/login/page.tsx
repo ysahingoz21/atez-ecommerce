@@ -30,9 +30,9 @@ export default function LoginPage() {
   };
 
   return (
-    <div className="min-h-screen bg-[#727D73] flex items-center justify-center">
-      <div className="bg-[#F2F2F2] p-8 rounded-lg shadow-lg w-full max-w-sm">
-        <h2 className="text-[#3f4640] text-2xl font-semibold text-center mb-4">Login</h2>
+    <div className="flex items-center justify-center">
+      <div className="bg-[#FFFFFF] px-8 py-12 rounded-lg shadow-lg w-full max-w-sm">
+        <h2 className="text-[#001529] text-2xl font-semibold text-center mb-2">Login</h2>
 
         {errorMessage && (
           <Alert
@@ -41,7 +41,7 @@ export default function LoginPage() {
             type="error"
             showIcon
             closable
-            className="!mb-4"
+            className="!mb-2 !px-6 py-2!"
             onClose={() => setErrorMessage(null)}
           />
         )}
@@ -54,11 +54,11 @@ export default function LoginPage() {
           >
             <Input 
               className="
-                !bg-[#D0DDD0]
+                !bg-[#0015290a]
                 !text-[#1f2937]
                 !border-[#d1d5db]
                 focus:!ring-1
-                focus:!ring-[#3f4640]
+                focus:!ring-[#001529]
                 !rounded-md
                 !py-2
                 !px-3
@@ -74,11 +74,11 @@ export default function LoginPage() {
           >
             <Input.Password 
               className="
-                !bg-[#D0DDD0]
+                !bg-[#0015290a]
                 !text-[#1f2937]
                 !border-[#d1d5db]
                 focus:!ring-1
-                focus:!ring-[#3f4640]
+                focus:!ring-[#001529]
                 !rounded-md
                 !py-2
                 !px-3
@@ -90,10 +90,10 @@ export default function LoginPage() {
           <Form.Item>
             <Button 
               className="
-                !bg-[#727D73] 
+                !bg-[#001529e8] 
                 !border
                 !border-transparent
-                hover:!bg-[#3f4640]/90
+                hover:!bg-[#001529]
                 hover:!border-[#000000]
                 !text-[#f2f2f2] 
                 transition-all duration-300
@@ -108,14 +108,14 @@ export default function LoginPage() {
         </Form>
 
         <div className="text-center mb-2">
-          <span className="text-[#3f4640]">Don't you have an account?</span>
+          <span className="text-[#001529]">Don't you have an account?</span>
         </div>
         <Button 
           className="
-            !bg-[#727D73] 
+            !bg-[#001529e8] 
             !border
             !border-transparent
-            hover:!bg-[#3f4640]/90
+            hover:!bg-[#001529]
             hover:!border-[#000000]
             !text-[#f2f2f2] 
             transition-all duration-300
