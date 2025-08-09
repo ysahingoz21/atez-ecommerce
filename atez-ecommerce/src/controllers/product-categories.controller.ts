@@ -16,6 +16,7 @@ import {
   del,
   requestBody,
   response,
+  HttpErrors
 } from '@loopback/rest';
 import {ProductCategory} from '../models';
 import {ProductCategoryRepository} from '../repositories';
@@ -145,5 +146,39 @@ export class ProductCategoriesController {
   })
   async deleteById(@param.path.number('id') id: number): Promise<void> {
     await this.productCategoryRepository.deleteById(id);
+  }
+
+  @patch('/product-categories/bulk-update')
+  @response(200, {
+    description: 'ProductCategory relationships updated successfully',
+    content: {
+      'application/json': {
+        schema: {
+          type: 'array',
+          items: getModelSchemaRef(ProductCategory),
+        },
+      },
+    },
+  })
+  async bulkUpdate(
+    @requestBody() productCategories: Array<{productId: number, categoryId: number}>,
+  ): Promise<void> {
+    try {
+      for (const item of productCategories) {
+        const existingProductCategory = await this.productCategoryRepository.findOne({
+          where: {
+            productId: item.productId,
+            categoryId: item.categoryId,
+          },
+        });
+
+        if (!existingProductCategory) {
+          await this.productCategoryRepository.create(item);
+        }
+      }
+    } catch (error) {
+      console.error('Error during bulk update operation:', error);
+      throw new HttpErrors.InternalServerError('Failed to update product-category relationships');
+    }
   }
 }

@@ -16,15 +16,45 @@ import {
   del,
   requestBody,
   response,
+  HttpErrors,
 } from '@loopback/rest';
 import {Category} from '../models';
 import {CategoryRepository} from '../repositories';
+
 
 export class CategoriesController {
   constructor(
     @repository(CategoryRepository)
     public categoryRepository : CategoryRepository,
   ) {}
+
+  @patch('/categories/bulk-update')
+  @response(204, {
+    description: 'Categories updated successfully',
+  })
+  async bulkUpdate(
+    @requestBody() categories: Array<{categoryId: number, categoryName: string, imageUrl: string}>,
+  ): Promise<void> {
+    try {
+      // Loop through each category in the list
+      for (const category of categories) {
+        // Ensure the category exists in the database
+        const existingCategory = await this.categoryRepository.findById(category.categoryId);
+        
+        if (!existingCategory) {
+          throw new HttpErrors.NotFound(`Category with id ${category.categoryId} not found`);
+        }
+
+        // Update the category
+        await this.categoryRepository.updateById(category.categoryId, {
+          categoryName: category.categoryName,
+          imageUrl: category.imageUrl,
+        });
+      }
+    } catch (error) {
+      throw new HttpErrors.BadRequest('Failed to update categories');
+    }
+  }
 
   @post('/categories')
   @response(200, {

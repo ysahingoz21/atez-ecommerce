@@ -4,17 +4,21 @@ import { Form, Input, Button, Alert } from 'antd';
 import axios from 'axios';
 import { useRouter } from 'next/navigation';
 import {useState} from 'react';
+import { useToken } from '../../context/tokenContext';
 
 export default function LoginPage() {
   const router = useRouter();
   const [errorMessage, setErrorMessage] = useState<string | null>(null);
+  const { setToken } = useToken();
 
   const onFinish = async (values: any) => {
     try {
       const res = await axios.post('http://localhost:3001/auth/login', values);
       const token = res.data.token;
 
+      setToken(token);
       localStorage.setItem('token', token);
+
       setErrorMessage(null);
       router.push('/products');
     } catch (error: any) {
@@ -30,7 +34,7 @@ export default function LoginPage() {
   };
 
   return (
-    <div className="flex items-center justify-center">
+    <div className="flex items-center justify-center p-15">
       <div className="bg-[#FFFFFF] px-8 py-12 rounded-lg shadow-lg w-full max-w-sm">
         <h2 className="text-[#001529] text-2xl font-semibold text-center mb-2">Login</h2>
 
