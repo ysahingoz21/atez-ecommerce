@@ -5,26 +5,22 @@ import { Card, Row, Col, Spin } from 'antd';
 
 const { Meta } = Card;
 
-interface Product {
-  productId: number;
-  brandId: number;
-  productName: string;
-  description: string;
-  price: number;
-  stockQuantity: number;
-  imageUrl: string;
+interface Category {
+  categoryId: number;
+  categoryName: string;
+  imageUrl?: string;
 }
 
-export default function ProductsPage() {
-  const [products, setProducts] = useState<Product[]>([]);
+export default function CategoriesPage() {
+  const [categories, setCategories] = useState<Category[]>([]);
   const [loading, setLoading] = useState(true);
 
   useEffect(() => {
     const fetchData = () => {
-      fetch('http://localhost:3001/products')
+      fetch('http://localhost:3001/categories')
         .then(res => res.json())
         .then(data => {
-          setProducts(data);
+          setCategories(data);
           setLoading(false);
         });
     };
@@ -40,33 +36,26 @@ export default function ProductsPage() {
   return (
     <div className='px-12 pb-10'>
       <div className='text-[#000000E0] text-[30px] font-semibold flex items-center justify-center my-2'>
-        <p>Products</p>
+        <p>Categories</p>
       </div>
       {loading ? (
         <Spin size="large" />
       ) : (
         <Row gutter={[16, 16]}>
-          {products.map(product => (
-            <Col xs={24} sm={12} md={8} lg={6} key={product.productId}>
+          {categories.map(category => (
+            <Col xs={24} sm={12} md={8} lg={6} key={category.categoryId}>
               <Card
                 hoverable
                 cover={
                   <img
-                    alt={product.productName}
-                    src={product.imageUrl || 'https://via.placeholder.com/240'}
+                    alt={category.categoryName}
+                    src={category.imageUrl || 'https://via.placeholder.com/240'}
                     style={{ height: 200, objectFit: 'cover' }}
                   />
                 }
               >
                 <Meta
-                  title={product.productName}
-                  description={
-                    <>
-                      <div>{product.description}</div>
-                      <div><b>Price:</b> {product.price} ₺</div>
-                      <div><b>Stock:</b> {product.stockQuantity}</div>
-                    </>
-                  }
+                  title={category.categoryName}
                 />
               </Card>
             </Col>

@@ -7,21 +7,21 @@ import {
   TagsOutlined,
   UserOutlined,
   LogoutOutlined,
+  ShoppingOutlined 
 } from '@ant-design/icons';
 import { useRouter } from 'next/navigation';
-import { useEffect, useState } from 'react';
+import { useToken } from '../context/tokenContext'
+import { usePathname } from 'next/navigation';
 
 const { Header } = Layout;
 const { Search } = Input;
 
 export default function Navbar() {
   const router = useRouter();
-  const [token, setToken] = useState<string | null>(null);
+  const pathname = usePathname();
+  const selectedKey = pathname === '/' ? '' : pathname.split('/')[1];
 
-  useEffect(() => {
-    const storedToken = localStorage.getItem('token');
-    setToken(storedToken);
-  }, []);
+  const { token, setToken } = useToken();
 
   const handleLogout = () => {
     localStorage.removeItem('token');
@@ -76,8 +76,10 @@ export default function Navbar() {
         mode="horizontal"
         className="flex justify-center bg-[#D0DDD0]"
         onClick={handleMenuClick}
+        selectedKeys={[selectedKey]}
         items={[
           { key: '', icon: <HomeOutlined />, label: 'Home' },
+          { key: 'products', icon: <ShoppingOutlined />, label: 'Products' },
           { key: 'categories', icon: <AppstoreOutlined />, label: 'Categories' },
           { key: 'brands', icon: <TagsOutlined />, label: 'Brands' },
         ]}
