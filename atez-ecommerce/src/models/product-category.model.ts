@@ -1,4 +1,4 @@
-import {Model, model, Entity, property} from '@loopback/repository';
+import {model, Entity, property} from '@loopback/repository';
 
 @model({name: 'ProductCategories'})
 export class ProductCategory extends Entity {

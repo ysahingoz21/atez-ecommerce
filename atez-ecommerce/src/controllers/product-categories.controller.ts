@@ -148,6 +148,15 @@ export class ProductCategoriesController {
     await this.productCategoryRepository.deleteById(id);
   }
 
+  @del('/product-categories')
+  @response(200, {description: 'Deleted join rows', content: {'application/json': {schema: CountSchema}}})
+  async deleteByPair(
+    @param.query.number('productId') productId: number,
+    @param.query.number('categoryId') categoryId: number,
+  ) {
+    return this.productCategoryRepository.deleteAll({productId, categoryId});
+  }
+
   @patch('/product-categories/bulk-update')
   @response(200, {
     description: 'ProductCategory relationships updated successfully',
