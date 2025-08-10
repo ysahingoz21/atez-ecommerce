@@ -18,9 +18,8 @@ import {
   response,
   HttpErrors,
 } from '@loopback/rest';
-import {Category} from '../models';
+import {Category, Product} from '../models';
 import {CategoryRepository} from '../repositories';
-
 
 export class CategoriesController {
   constructor(
@@ -177,4 +176,33 @@ export class CategoriesController {
   async deleteById(@param.path.number('id') id: number): Promise<void> {
     await this.categoryRepository.deleteById(id);
   }
+
+  @get('/categories/{id}/products')
+  async findProductsByCategory(
+    @param.path.number('id') id: number
+  ): Promise<Product[]> {
+    const cat = await this.categoryRepository.findById(id).catch(() => null);
+    if (!cat?.categoryId) throw new HttpErrors.NotFound('Category not found');
+    return this.categoryRepository.products(id).find();
+  }
+
+  @get('/categories/slug/{slug}')
+  async productsBySlug(
+    @param.path.string('slug') slug: string
+  ): Promise<Product[]> {
+    const cat = await this.categoryRepository.findOne({where: {slug}});
+    if (!cat?.categoryId) throw new HttpErrors.NotFound('Category not found');
+    return this.categoryRepository.products(cat.categoryId).find();
+  }
+
+  @get('/categories/slug/{slug}/detail')
+  @response(200, {
+    description: 'Category by slug',
+    content: {'application/json': {schema: getModelSchemaRef(Category)}},
+  })
+  async findBySlugDetail(@param.path.string('slug') slug: string): Promise<Category> {
+    const cat = await this.categoryRepository.findOne({where: {slug}});
+    if (!cat) throw new HttpErrors.NotFound('Category not found');
+    return cat;
+  }  
 }

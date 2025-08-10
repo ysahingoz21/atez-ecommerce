@@ -2,12 +2,14 @@
 
 import { useEffect, useState } from 'react';
 import { Card, Row, Col, Spin } from 'antd';
+import Link from "next/link";
 
 const { Meta } = Card;
 
 interface Category {
   categoryId: number;
   categoryName: string;
+  slug: string;
   imageUrl?: string;
 }
 
@@ -16,6 +18,7 @@ export default function CategoriesPage() {
   const [loading, setLoading] = useState(true);
 
   useEffect(() => {
+    console.log('yusuf');
     const fetchData = () => {
       fetch('http://localhost:3001/categories')
         .then(res => res.json())
@@ -25,12 +28,7 @@ export default function CategoriesPage() {
         });
     };
   
-    fetchData(); // initial load
-  
-    // load data every 5 seconds
-    const interval = setInterval(fetchData, 5000);
-  
-    return () => clearInterval(interval);
+    fetchData();
   }, []);  
 
   return (
@@ -44,20 +42,20 @@ export default function CategoriesPage() {
         <Row gutter={[16, 16]}>
           {categories.map(category => (
             <Col xs={24} sm={12} md={8} lg={6} key={category.categoryId}>
-              <Card
-                hoverable
-                cover={
-                  <img
-                    alt={category.categoryName}
-                    src={category.imageUrl || 'https://via.placeholder.com/240'}
-                    style={{ height: 200, objectFit: 'cover' }}
-                  />
-                }
-              >
-                <Meta
-                  title={category.categoryName}
-                />
-              </Card>
+              <Link href={`/categories/${category.slug}`}>
+                <Card
+                  hoverable
+                  cover={
+                    <img
+                      alt={category.categoryName}
+                      src={category.imageUrl || "https://via.placeholder.com/240"}
+                      style={{ height: 200, objectFit: "cover" }}
+                    />
+                  }
+                >
+                  <Meta title={category.categoryName} />
+                </Card>
+              </Link>
             </Col>
           ))}
         </Row>
